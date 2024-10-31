@@ -10,6 +10,8 @@ contract MessageStorage {
      */
     function addMessage(string calldata _message) external {
         messages[msg.sender].push(_message);
+        // msg は関数呼び出し時に自動的に生成されるグローバル変数
+        // msg.sender は関数を呼び出したアドレスを取得する
     }
 
     /**
@@ -17,6 +19,7 @@ contract MessageStorage {
      */
     function getLatestMessage() external view returns (string memory) {
         require(messages[msg.sender].length > 0, "No messages found");
+        // 配列の最後の要素を取得するが、配列が空の場合はエラーを返す
         return messages[msg.sender][messages[msg.sender].length - 1];
     }
 
@@ -24,6 +27,7 @@ contract MessageStorage {
      * 全てのメッセージを取得する関数
      */
     function getAllMessages() external view returns (string[] memory) {
+        // error 処理はないが、空の配列を返すので問題ない
         return messages[msg.sender];
     }
 }
